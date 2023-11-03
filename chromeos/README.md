@@ -24,3 +24,8 @@ The primary goal is to ensure that my development environment on ChromeOS is sta
    ```bash
    git clone https://github.com/your-username/MachineSetup.git
    cd MachineSetup/chromeos
+
+**Optional**
+run 
+`bash -c "$(curl -fsSL https://raw.githubusercontent.com/robcerda/MachineSetup/master/chromeos/setup_chromeos.sh)"
+`
