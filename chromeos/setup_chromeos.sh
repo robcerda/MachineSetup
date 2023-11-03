@@ -21,6 +21,24 @@ fi
 # Add any specific configurations to the SSH config file if needed
 # Example: echo "Host example.com\n  Port 22\n  User myusername" >> ~/.ssh/config
 
+# Check if the additional packages are installed, and if not, install them non-interactively
+if ! dpkg -l | grep -q nmap; then
+    sudo apt install -y nmap
+fi
+
+if ! dpkg -l | grep -q lynx; then
+    sudo apt install -y lynx
+fi
+
+if ! dpkg -l | grep -q net-tools; then
+    sudo apt install -y net-tools
+fi
+
+# Install GNOME Keyring if it's not already installed
+if ! dpkg -l | grep -q gnome-keyring; then
+    sudo apt install -y gnome-keyring
+fi
+
 # Download deb files to the Downloads folder if they don't exist
 if [ ! -f ~/Downloads/1password-latest.deb ]; then
     wget -O ~/Downloads/1password-latest.deb https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb
@@ -45,23 +63,6 @@ if ! dpkg -l | grep -q 'vscode'; then
     else
         echo "Error: Failed to install Visual Studio Code."
     fi
-fi
-# Install GNOME Keyring if it's not already installed
-if ! dpkg -l | grep -q gnome-keyring; then
-    sudo apt install -y gnome-keyring
-fi
-
-# Check if the additional packages are installed, and if not, install them non-interactively
-if ! dpkg -l | grep -q nmap; then
-    sudo apt install -y nmap
-fi
-
-if ! dpkg -l | grep -q lynx; then
-    sudo apt install -y lynx
-fi
-
-if ! dpkg -l | grep -q net-tools; then
-    sudo apt install -y net-tools
 fi
 
 # Remember to make this script executable before running it
