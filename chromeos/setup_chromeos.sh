@@ -30,21 +30,31 @@ if [ ! -f ~/Downloads/vscode.deb ]; then
     wget -O ~/Downloads/vscode.deb 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64'
 fi
 
-# Install downloaded deb files
-sudo dpkg -i ~/Downloads/1password-latest.deb
-sudo dpkg -i ~/Downloads/vscode.deb
+# Check if the deb packages are installed, and if not, install them non-interactively
+if ! dpkg -l | grep -q '1password-latest'; then
+    sudo dpkg -i -y ~/Downloads/1password-latest.deb
+fi
 
-# Check if the additional packages are installed and install them if not
+if ! dpkg -l | grep -q 'vscode'; then
+    sudo dpkg -i -y ~/Downloads/vscode.deb
+fi
+
+# Install GNOME Keyring if it's not already installed
+if ! dpkg -l | grep -q gnome-keyring; then
+    sudo apt install -y gnome-keyring
+fi
+
+# Check if the additional packages are installed, and if not, install them non-interactively
 if ! dpkg -l | grep -q nmap; then
-    sudo apt install nmap
+    sudo apt install -y nmap
 fi
 
 if ! dpkg -l | grep -q lynx; then
-    sudo apt install lynx
+    sudo apt install -y lynx
 fi
 
 if ! dpkg -l | grep -q net-tools; then
-    sudo apt install net-tools
+    sudo apt install -y net-tools
 fi
 
 # Remember to make this script executable before running it
