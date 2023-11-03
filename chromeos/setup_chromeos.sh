@@ -32,13 +32,20 @@ fi
 
 # Check if the deb packages are installed, and if not, install them non-interactively
 if ! dpkg -l | grep -q '1password-latest'; then
-    sudo dpkg -i -y ~/Downloads/1password-latest.deb
+    if sudo dpkg -i -y ~/Downloads/1password-latest.deb; then
+        echo "1Password installed successfully."
+    else
+        echo "Error: Failed to install 1Password."
+    fi
 fi
 
 if ! dpkg -l | grep -q 'vscode'; then
-    sudo dpkg -i -y ~/Downloads/vscode.deb
+    if sudo dpkg -i -y ~/Downloads/vscode.deb; then
+        echo "Visual Studio Code installed successfully."
+    else
+        echo "Error: Failed to install Visual Studio Code."
+    fi
 fi
-
 # Install GNOME Keyring if it's not already installed
 if ! dpkg -l | grep -q gnome-keyring; then
     sudo apt install -y gnome-keyring
