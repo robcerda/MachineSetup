@@ -30,9 +30,9 @@ if [ ! -f ~/Downloads/vscode.deb ]; then
     wget -O ~/Downloads/vscode.deb 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64'
 fi
 
-# Check if the deb packages are installed, and if not, install them non-interactively
+# Install downloaded deb files non-interactively
 if ! dpkg -l | grep -q '1password-latest'; then
-    if sudo dpkg -i -y ~/Downloads/1password-latest.deb; then
+    if sudo DEBIAN_FRONTEND=noninteractive dpkg -i ~/Downloads/1password-latest.deb; then
         echo "1Password installed successfully."
     else
         echo "Error: Failed to install 1Password."
@@ -40,7 +40,7 @@ if ! dpkg -l | grep -q '1password-latest'; then
 fi
 
 if ! dpkg -l | grep -q 'vscode'; then
-    if sudo dpkg -i -y ~/Downloads/vscode.deb; then
+    if sudo DEBIAN_FRONTEND=noninteractive dpkg -i ~/Downloads/vscode.deb; then
         echo "Visual Studio Code installed successfully."
     else
         echo "Error: Failed to install Visual Studio Code."
