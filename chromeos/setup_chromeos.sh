@@ -18,9 +18,6 @@ if [ ! -f ~/.ssh/config ]; then
     touch ~/.ssh/config
 fi
 
-# Add any specific configurations to the SSH config file if needed
-# Example: echo "Host example.com\n  Port 22\n  User myusername" >> ~/.ssh/config
-
 # Check if the additional packages are installed, and if not, install them non-interactively
 if ! dpkg -l | grep -q nmap; then
     sudo apt install -y nmap
@@ -34,10 +31,13 @@ if ! dpkg -l | grep -q net-tools; then
     sudo apt install -y net-tools
 fi
 
-# Install GNOME Keyring if it's not already installed
-if ! dpkg -l | grep -q gnome-keyring; then
-    sudo apt install -y gnome-keyring
+# Install Seahorse (GNOME Keyring manager)
+if ! dpkg -l | grep -q seahorse; then
+    sudo apt install -y seahorse
 fi
+
+# Set GNOME Keyring as the default password store
+echo 'export GNOME_KEYRING_CONTROL=$(gnome-keyring-daemon --start --components=secrets,pkcs11,ssh,gpg)' >> ~/.profile
 
 # Download deb files to the Downloads folder if they don't exist
 if [ ! -f ~/Downloads/1password-latest.deb ]; then
