@@ -18,6 +18,18 @@ if [ ! -f ~/.ssh/config ]; then
     touch ~/.ssh/config
 fi
 
+# Install Seahorse (GNOME Keyring manager)
+if ! dpkg -l | grep -q seahorse; then
+    sudo apt install -y seahorse
+fi
+
+# Create the "Default keyring" and set it as default
+seahorse --create-keyring "Default keyring"
+echo "Created 'Default keyring'."
+
+seahorse --change-password "Default keyring"
+echo "Set 'Default keyring' as the default keyring."
+
 # Check if the additional packages are installed, and if not, install them non-interactively
 if ! dpkg -l | grep -q nmap; then
     sudo apt install -y nmap
@@ -30,14 +42,6 @@ fi
 if ! dpkg -l | grep -q net-tools; then
     sudo apt install -y net-tools
 fi
-
-# Install Seahorse (GNOME Keyring manager)
-if ! dpkg -l | grep -q seahorse; then
-    sudo apt install -y seahorse
-fi
-
-# Set GNOME Keyring as the default password store
-echo 'export GNOME_KEYRING_CONTROL=$(gnome-keyring-daemon --start --components=secrets,pkcs11,ssh,gpg)' >> ~/.profile
 
 # Download deb files to the Downloads folder if they don't exist
 if [ ! -f ~/Downloads/1password-latest.deb ]; then
