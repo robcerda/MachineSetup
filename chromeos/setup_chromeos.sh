@@ -44,6 +44,19 @@ if ! dpkg -l | grep -q nano; then
     sudo apt install -y nano
 fi
 
+# Install additional packages if not already installed
+if ! dpkg -l | grep -q nmap; then
+    sudo apt install -y nmap
+fi
+
+if ! dpkg -l | grep -q lynx; then
+    sudo apt install -y lynx
+fi
+
+if ! dpkg -l | grep -q net-tools; then
+    sudo apt install -y net-tools
+fi
+
 # Download deb files to the Downloads folder if they don't exist
 if [ ! -f ~/Downloads/1password-latest.deb ]; then
     wget -O ~/Downloads/1password-latest.deb https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb
