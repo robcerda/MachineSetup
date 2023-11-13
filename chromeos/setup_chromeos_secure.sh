@@ -43,11 +43,7 @@ if ! dpkg -l | grep -q strace; then
     sudo apt install -y strace
 fi
 
-if ! dpkg -l | grep -q sysdig; then
-    sudo apt install -y sysdig
-fi
-
-echo "All necessary tools for MP4 file inspection have been installed."
+echo "All necessary tools for file inspection have been installed."
 
 # Note: You may need to log out and log back in for some changes to take effect, especially for wireshark.
 
